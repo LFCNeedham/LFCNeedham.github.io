@@ -2,40 +2,28 @@
 layout: default
 title: PHOTOS
 permalink: /photos/
+header-img: img/home-bg-art.jpg  # 这里可以换成你想要的任何顶图
 ---
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 
-<style>
-    /* 页面整体容器，设置上内边距避开导航栏 */
-    .photo-page-container {
-        padding-top: 80px; /* 避开 Fixed Navbar 的高度 */
-        padding-bottom: 50px;
-        min-height: 80vh;
-    }
+<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>{{ page.title }}</h1>
+                    <span class="subheading">记录生活中的美好瞬间</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-    /* 标题区域样式 */
-    .page-header-section {
-        text-align: center;
-        margin-bottom: 40px;
-        animation: fadeInDown 0.8s ease-out;
-    }
-    .page-header-section h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        color: #333;
-        margin-bottom: 10px;
-    }
-    .page-header-section hr {
-        width: 60px;
-        border-top: 3px solid #0085a1; /* 使用你博客的主题色 */
-        margin: 0 auto;
-    }
-    .page-header-section p {
-        color: #888;
-        margin-top: 10px;
-        font-style: italic;
+<style>
+    /* 注意：如果用了头图，这里不需要 padding-top 了 */
+    .photo-page-container {
+        min-height: 80vh;
     }
 
     /* 分组标题 */
@@ -48,62 +36,43 @@ permalink: /photos/
         border-left: 4px solid #0085a1;
     }
 
-    /* 瀑布流布局核心代码 */
+    /* 瀑布流布局 */
     .photo-masonry {
-        column-count: 3; /* 默认3列 */
-        column-gap: 20px; /* 列间距 */
+        column-count: 3; 
+        column-gap: 20px; 
     }
     
-    /* 单个照片卡片 */
     .photo-card {
-        break-inside: avoid; /* 防止图片在列之间被切断 */
-        margin-bottom: 20px; /* 图片下间距 */
+        break-inside: avoid; 
+        margin-bottom: 20px; 
         border-radius: 8px;
         overflow: hidden;
         background: #fff;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 阴影效果 */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         cursor: pointer;
     }
 
     .photo-card:hover {
-        transform: translateY(-5px); /* 悬浮上移 */
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* 悬浮加深阴影 */
+        transform: translateY(-5px); 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
     }
 
     .photo-card img {
         width: 100%;
-        height: auto; /* 自适应高度，保持比例 */
+        height: auto; 
         display: block;
         transition: opacity 0.3s;
     }
     
-    /* 简单的淡入动画 */
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* 响应式调整 */
-    @media (max-width: 900px) { 
-        .photo-masonry { column-count: 2; } 
-    }
-    @media (max-width: 600px) { 
-        .photo-masonry { column-count: 1; } 
-        .photo-page-container { padding-top: 70px; }
-    }
+    @media (max-width: 900px) { .photo-masonry { column-count: 2; } }
+    @media (max-width: 600px) { .photo-masonry { column-count: 1; } }
 </style>
 
 <div class="container photo-page-container">
-    
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-header-section">
-                <h1>GALLERY</h1>
-                <hr>
-                <p>记录生活中的美好瞬间</p>
-            </div>
-
+            
             {% assign photos = site.static_files | where_exp: "f", "f.path contains '/img/photos/'" %}
             {% assign sorted = photos | sort: "name" %}
             {% assign groups = sorted | group_by_exp: "f", "f.modified_time | date: '%Y年%m月'" %}
@@ -111,7 +80,6 @@ permalink: /photos/
             {% for group in groups %}
                 <section class="photo-group">
                     <h2 class="group-title">{{ group.name }}</h2>
-                    
                     <div class="photo-masonry">
                         {% for file in group.items %}
                             {% assign ext = file.extname | downcase %}
@@ -136,7 +104,6 @@ permalink: /photos/
       selector: '.glightbox',
       touchNavigation: true,
       loop: true,
-      zoomable: true,
-      draggable: true
+      zoomable: true
   });
 </script>
