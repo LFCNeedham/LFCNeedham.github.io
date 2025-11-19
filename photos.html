@@ -5,40 +5,129 @@ permalink: /photos/
 ---
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
 <style>
-  .photo-group { margin-bottom: 36px; }
-  .group-title { font-size: 1.05rem; margin: 6px 0 12px; color: #333; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .photo-item { overflow: hidden; border-radius: 6px; position: relative; }
-  .photo-item img { width: 100%; height: 320px; object-fit: cover; display: block; transition: transform 0.3s ease; }
-  .photo-item:hover img { transform: scale(1.05); }
-  @media (max-width: 900px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } .photo-item img { height: 260px; } }
-  @media (max-width: 600px) { .photo-grid { grid-template-columns: repeat(1, 1fr); } .photo-item img { height: 220px; } }
+    /* 页面整体容器，设置上内边距避开导航栏 */
+    .photo-page-container {
+        padding-top: 80px; /* 避开 Fixed Navbar 的高度 */
+        padding-bottom: 50px;
+        min-height: 80vh;
+    }
+
+    /* 标题区域样式 */
+    .page-header-section {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeInDown 0.8s ease-out;
+    }
+    .page-header-section h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .page-header-section hr {
+        width: 60px;
+        border-top: 3px solid #0085a1; /* 使用你博客的主题色 */
+        margin: 0 auto;
+    }
+    .page-header-section p {
+        color: #888;
+        margin-top: 10px;
+        font-style: italic;
+    }
+
+    /* 分组标题 */
+    .group-title { 
+        font-size: 1.5rem; 
+        margin: 30px 0 20px; 
+        color: #444; 
+        font-weight: 600; 
+        padding-left: 15px;
+        border-left: 4px solid #0085a1;
+    }
+
+    /* 瀑布流布局核心代码 */
+    .photo-masonry {
+        column-count: 3; /* 默认3列 */
+        column-gap: 20px; /* 列间距 */
+    }
+    
+    /* 单个照片卡片 */
+    .photo-card {
+        break-inside: avoid; /* 防止图片在列之间被切断 */
+        margin-bottom: 20px; /* 图片下间距 */
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 阴影效果 */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+    .photo-card:hover {
+        transform: translateY(-5px); /* 悬浮上移 */
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* 悬浮加深阴影 */
+    }
+
+    .photo-card img {
+        width: 100%;
+        height: auto; /* 自适应高度，保持比例 */
+        display: block;
+        transition: opacity 0.3s;
+    }
+    
+    /* 简单的淡入动画 */
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 900px) { 
+        .photo-masonry { column-count: 2; } 
+    }
+    @media (max-width: 600px) { 
+        .photo-masonry { column-count: 1; } 
+        .photo-page-container { padding-top: 70px; }
+    }
 </style>
 
-<div class="post-content">
-
-  {% assign photos = site.static_files | where_exp: "f", "f.path contains '/img/photos/'" %}
-  {% assign sorted = photos | sort: "name" %}
-  {% assign groups = sorted | group_by_exp: "f", "f.modified_time | date: '%Y年%m月'" %}
-
-  {% for group in groups %}
-    <section class="photo-group">
-      <h2 class="group-title">{{ group.name }}</h2>
-      <div class="photo-grid">
-        {% for file in group.items %}
-          {% assign ext = file.extname | downcase %}
-          {% if ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.webp' or ext == '.gif' or ext == '.svg' %}
-            <div class="photo-item">
-              <a href="{{ file.path | relative_url }}" class="glightbox" data-gallery="photos" data-type="image">
-                <img src="{{ file.path | relative_url }}" alt="{{ file.name }}" loading="lazy" />
-              </a>
+<div class="container photo-page-container">
+    
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="page-header-section">
+                <h1>GALLERY</h1>
+                <hr>
+                <p>记录生活中的美好瞬间</p>
             </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </section>
-  {% endfor %}
+
+            {% assign photos = site.static_files | where_exp: "f", "f.path contains '/img/photos/'" %}
+            {% assign sorted = photos | sort: "name" %}
+            {% assign groups = sorted | group_by_exp: "f", "f.modified_time | date: '%Y年%m月'" %}
+
+            {% for group in groups %}
+                <section class="photo-group">
+                    <h2 class="group-title">{{ group.name }}</h2>
+                    
+                    <div class="photo-masonry">
+                        {% for file in group.items %}
+                            {% assign ext = file.extname | downcase %}
+                            {% if ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.webp' or ext == '.gif' or ext == '.svg' %}
+                                <div class="photo-card">
+                                    <a href="{{ file.path | relative_url }}" class="glightbox" data-gallery="photos" data-type="image" data-description="{{ file.name }}">
+                                        <img src="{{ file.path | relative_url }}" alt="{{ file.name }}" loading="lazy" />
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
@@ -46,6 +135,8 @@ permalink: /photos/
   const lightbox = GLightbox({ 
       selector: '.glightbox',
       touchNavigation: true,
-      loop: true
+      loop: true,
+      zoomable: true,
+      draggable: true
   });
 </script>
