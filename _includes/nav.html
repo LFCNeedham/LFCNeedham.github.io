@@ -87,6 +87,8 @@
     document.addEventListener('click', function(e){
         if(e.target == $toggle) return;
         if(e.target.className == 'icon-bar') return;
+        // If click happens inside the navbar area (including dropdowns), don't close
+        if ($navbar && $navbar.contains && $navbar.contains(e.target)) return;
         __HuxNav__.close();
     })
 </script>
