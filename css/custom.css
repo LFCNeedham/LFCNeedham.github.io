@@ -77,3 +77,11 @@ header.intro-header .post-heading {
     color: #333 !important; /* 导航文字改为深色 */
 }
 /* 如果你想保留原本透明导航栏在首图上的效果，可以把第7点删掉 */
+/* 让侧边栏在滚动时黏在屏幕上 */
+.sidebar-container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 85px; 
+    z-index: 10;
+    height: fit-content;
+}
