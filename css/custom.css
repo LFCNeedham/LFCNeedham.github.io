@@ -1,87 +1,116 @@
-/* css/custom.css */
+/* ============================================================
+   Custom.css - 个人定制化样式表 (完整覆盖版)
+   更新时间：2025-12-25
+   更新内容：修复字体发虚、卡片化设计、图片优化
+   ============================================================ */
 
-/* 1. 引入高大上的字体 (思源宋体 + 优雅的英文字体) */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap');
+/* 1. 字体引入 (只引入 400常规 和 700加粗，去掉 300细体以防止发虚) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
 
-/* 全局字体调整：让文字更有呼吸感 */
+/* 2. 全局基础设置 */
 body {
-    font-family: 'Playfair Display', 'Noto Serif SC', "PingFang SC", "Hiragino Sans GB", serif !important;
-    background-color: #f9f9f9; /* 背景改为极淡的灰，凸显白色卡片 */
-    color: #444; /* 字体颜色不要纯黑，深灰更高级 */
+    /* 字体栈：优先使用高清晰度的宋体，最后才用通用衬线体 */
+    font-family: 'Playfair Display', "Songti SC", "Noto Serif SC", "PingFang SC", "Hiragino Sans GB", serif !important;
+    
+    /* 背景色：极淡的灰白，护眼且高级 */
+    background-color: #fcfcfc; 
+    
+    /* 字体颜色：加深到接近黑色，解决“看不清/有阴影”的观感 */
+    color: #2f2f2f; 
+    
+    /* 字号与行高 */
+    font-size: 16px;
+    line-height: 1.8;
+    
+    /* 【关键修复】开启字体抗锯齿，让文字边缘锐利清晰 */
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* 2. 首页文章列表卡片化改造 */
+/* 强制正文不使用细体，确保清晰 */
+p {
+    font-weight: 400 !important;
+    text-shadow: none !important; /* 彻底去除文字阴影 */
+}
+
+/* 3. 首页文章列表 - 卡片化设计 */
 .post-preview {
     background: #ffffff;
     padding: 30px 40px;
-    margin-bottom: 40px; /* 卡片间距 */
-    border-radius: 16px; /* 大圆角 */
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); /* 极度柔和的阴影，像漂浮在纸面上 */
+    margin-bottom: 40px;
+    border-radius: 12px; /* 圆角 */
+    /* 柔和的卡片阴影，营造悬浮感 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+    border: 1px solid rgba(0,0,0,0.03); /* 极细的边框 */
     transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.02);
 }
 
-/* 鼠标悬停时的特效 */
+/* 鼠标悬停在卡片上时的特效 */
 .post-preview:hover {
     transform: translateY(-5px); /* 微微上浮 */
-    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* 阴影加深 */
 }
 
-/* 3. 标题样式优化 */
+/* 4. 文章标题样式 */
 .post-preview > a > .post-title {
-    font-weight: 700;
-    font-size: 28px;
+    font-weight: 700; /* 加粗 */
+    font-size: 26px;  /* 字号适中 */
     margin-top: 10px;
-    color: #2c3e50;
-    letter-spacing: -0.5px;
+    color: #1a1a1a;   /* 纯黑标题，拉开层次 */
+    letter-spacing: 0.5px;
+    text-shadow: none; /* 去除阴影 */
 }
 
 .post-preview > a > .post-subtitle {
-    font-weight: 300;
+    font-weight: 400; /* 正常粗细 */
     font-size: 16px;
-    color: #888;
+    color: #555;      /* 副标题深灰 */
     margin-top: 10px;
     font-family: 'Noto Serif SC', serif;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 
-/* 4. 图片优化 - 你的摄影作品需要更好的展示 */
-/* 这里的 img 针对的是文章内的图片 */
+/* 5. 文章内图片优化 */
 article img {
-    border-radius: 8px; /* 图片圆角 */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08); /* 图片阴影 */
+    border-radius: 6px;       /* 图片圆角 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* 图片立体阴影 */
     margin: 30px auto !important;
     display: block;
-}
-
-/* 5. 去除一些老气的元素 */
-hr.small {
-    display: none; /* 隐藏以前那个短横线，现在不需要了 */
+    max-width: 100%;
 }
 
 /* 6. 顶部大图 Header 优化 */
 header.intro-header .site-heading, 
 header.intro-header .post-heading {
     padding: 100px 0;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* 增强文字在图片上的可读性 */
+    /* 仅在背景图上的文字保留阴影，保证可读性 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
 }
 
-/* 7. 导航栏微调 */
+/* 7. 导航栏样式微调 */
 .navbar-custom {
-    background: rgba(255,255,255,0.95); /* 导航栏改为半透明白底 */
+    background: rgba(255,255,255,0.95); /* 半透明白底 */
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    backdrop-filter: blur(10px); /* 毛玻璃特效（现代浏览器支持） */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 .navbar-custom .navbar-brand, 
 .navbar-custom .nav li a {
-    color: #333 !important; /* 导航文字改为深色 */
+    color: #333 !important; /* 导航文字深色 */
+    font-weight: 700;
 }
-/* 如果你想保留原本透明导航栏在首图上的效果，可以把第7点删掉 */
-/* 让侧边栏在滚动时黏在屏幕上 */
-.sidebar-container {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 85px; 
-    z-index: 10;
-    height: fit-content;
+
+/* 8. 侧边栏滚动黏滞 (PC端有效) */
+@media (min-width: 992px) {
+    .sidebar-container {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 85px; 
+        z-index: 10;
+        height: fit-content;
+    }
+}
+
+/* 9. 去除旧样式 */
+hr.small {
+    display: none;
 }
