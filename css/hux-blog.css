@@ -1507,3 +1507,120 @@ a:focus {
     line-height: 2;
   }
 }
+
+/* ================================
+   Personal Photo Page
+   照片页 / 相册页
+================================ */
+
+.photo-page-intro {
+  max-width: 760px;
+  margin: 20px auto 44px;
+  text-align: center;
+}
+
+.photo-page-kicker {
+  margin: 0 0 12px;
+  color: #b7795f;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.photo-page-intro h1 {
+  margin: 0;
+  color: #2f2a26;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    "Songti SC",
+    "SimSun",
+    serif;
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.photo-page-intro p {
+  margin: 18px auto 0;
+  max-width: 620px;
+  color: #7a6f66;
+  font-size: 17px;
+  line-height: 2;
+}
+
+/* 相册瀑布流 */
+.photo-masonry {
+  column-count: 3;
+  column-gap: 22px;
+  margin: 0 auto 60px;
+}
+
+.photo-card {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 22px;
+  break-inside: avoid;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #fffdf8;
+  box-shadow: 0 18px 48px rgba(80, 58, 42, 0.11);
+}
+
+.photo-card a {
+  display: block;
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.photo-card:hover img {
+  transform: scale(1.035);
+  filter: brightness(0.96);
+}
+
+/* 移动端相册 */
+@media only screen and (max-width: 991px) {
+  .photo-masonry {
+    column-count: 2;
+    column-gap: 18px;
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .photo-page-intro {
+    text-align: left;
+    margin: 10px 0 30px;
+  }
+
+  .photo-page-intro h1 {
+    font-size: 34px;
+  }
+
+  .photo-page-intro p {
+    font-size: 16px;
+  }
+
+  .photo-masonry {
+    column-count: 1;
+  }
+
+  .photo-card {
+    border-radius: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 12px 30px rgba(80, 58, 42, 0.1);
+  }
+
+  .photo-card img {
+    border-radius: 20px;
+  }
+}
