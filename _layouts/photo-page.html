@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<!-- Photo Page Header -->
+<header class="intro-header photo-intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+                    {% if page.description %}
+                    <span class="subheading">{{ page.description }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Photo Page Content: full width, no sidebar -->
+<main class="photo-page-wrapper">
+    {{ content }}
+</main>
