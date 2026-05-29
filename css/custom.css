@@ -1,116 +1,443 @@
 /* ============================================================
-   Custom.css - 个人定制化样式表 (完整覆盖版)
-   更新时间：2025-12-25
-   更新内容：修复字体发虚、卡片化设计、图片优化
+   Needham Blog - Personal Journal Theme
+   定位：散文 / 日记 / 照片 / 生活记录
+   说明：本文件在 hux-blog.min.css 之后加载，用于覆盖旧模板样式
    ============================================================ */
 
-/* 1. 字体引入 (只引入 400常规 和 700加粗，去掉 300细体以防止发虚) */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
-
-/* 2. 全局基础设置 */
+/* 1. 全局基础风格 */
 body {
-    /* 字体栈：优先使用高清晰度的宋体，最后才用通用衬线体 */
-    font-family: 'Playfair Display', "Songti SC", "Noto Serif SC", "PingFang SC", "Hiragino Sans GB", serif !important;
-    
-    /* 背景色：极淡的灰白，护眼且高级 */
-    background-color: #fcfcfc; 
-    
-    /* 字体颜色：加深到接近黑色，解决“看不清/有阴影”的观感 */
-    color: #2f2f2f; 
-    
-    /* 字号与行高 */
+    background: #faf7f2;
+    color: #2f2a26;
+    font-family:
+        "Songti SC",
+        "Noto Serif SC",
+        "PingFang SC",
+        "Hiragino Sans GB",
+        "Microsoft YaHei",
+        Georgia,
+        serif;
     font-size: 16px;
-    line-height: 1.8;
-    
-    /* 【关键修复】开启字体抗锯齿，让文字边缘锐利清晰 */
-    -webkit-font-smoothing: antialiased; 
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 强制正文不使用细体，确保清晰 */
 p {
-    font-weight: 400 !important;
-    text-shadow: none !important; /* 彻底去除文字阴影 */
+    font-weight: 400;
+    text-shadow: none !important;
 }
 
-/* 3. 首页文章列表 - 卡片化设计 */
+a {
+    color: #8a5d43;
+    transition: color .2s ease, background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+a:hover,
+a:focus {
+    color: #6f4934;
+    text-decoration: none;
+}
+
+/* 2. 导航栏：降低旧模板感 */
+.navbar-custom {
+    background: rgba(250, 247, 242, .92);
+    border-bottom: 1px solid rgba(234, 223, 210, .9);
+    box-shadow: none;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav li a {
+    color: #2f2a26 !important;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .nav li a:hover {
+    color: #9a6b4f !important;
+}
+
+/* 3. 顶部大图 */
+.intro-header {
+    position: relative;
+    margin-bottom: 42px;
+}
+
+.intro-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(47, 42, 38, .18), rgba(47, 42, 38, .68));
+    z-index: 1;
+}
+
+.intro-header .container {
+    position: relative;
+    z-index: 2;
+}
+
+header.intro-header .site-heading,
+header.intro-header .post-heading {
+    padding: 108px 0 86px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+}
+
+.intro-header .site-heading h1,
+.intro-header .page-heading h1,
+.intro-header .post-heading h1 {
+    font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+    font-weight: 500;
+    letter-spacing: -.04em;
+}
+
+.intro-header .site-heading .subheading,
+.intro-header .page-heading .subheading,
+.intro-header .post-heading .subheading {
+    margin-top: 16px;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+/* 4. 首页文章列表：日记卡片 */
 .post-preview {
-    background: #ffffff;
-    padding: 30px 40px;
-    margin-bottom: 40px;
-    border-radius: 12px; /* 圆角 */
-    /* 柔和的卡片阴影，营造悬浮感 */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
-    border: 1px solid rgba(0,0,0,0.03); /* 极细的边框 */
-    transition: all 0.3s ease;
+    background: #fffdf8;
+    padding: 34px 42px;
+    margin-bottom: 32px;
+    border-radius: 24px;
+    border: 1px solid #eadfd2;
+    box-shadow: 0 18px 50px rgba(80, 58, 42, .07);
+    transition: transform .22s ease, box-shadow .22s ease;
 }
 
-/* 鼠标悬停在卡片上时的特效 */
 .post-preview:hover {
-    transform: translateY(-5px); /* 微微上浮 */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1); /* 阴影加深 */
+    transform: translateY(-3px);
+    box-shadow: 0 26px 60px rgba(80, 58, 42, .11);
 }
 
-/* 4. 文章标题样式 */
+.post-preview > a {
+    color: #2f2a26;
+}
+
+.post-preview > a:hover {
+    color: #8a5d43;
+}
+
 .post-preview > a > .post-title {
-    font-weight: 700; /* 加粗 */
-    font-size: 26px;  /* 字号适中 */
-    margin-top: 10px;
-    color: #1a1a1a;   /* 纯黑标题，拉开层次 */
-    letter-spacing: 0.5px;
-    text-shadow: none; /* 去除阴影 */
+    margin-top: 0;
+    color: #24201d;
+    font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+    font-size: 30px;
+    line-height: 1.38;
+    font-weight: 500;
+    letter-spacing: -.02em;
+    text-shadow: none;
 }
 
 .post-preview > a > .post-subtitle {
-    font-weight: 400; /* 正常粗细 */
-    font-size: 16px;
-    color: #555;      /* 副标题深灰 */
-    margin-top: 10px;
-    font-family: 'Noto Serif SC', serif;
-    line-height: 1.6;
+    margin-top: 12px;
+    color: #6f655d;
+    font-size: 17px;
+    line-height: 1.85;
+    font-weight: 400;
 }
 
-/* 5. 文章内图片优化 */
-article img {
-    border-radius: 6px;       /* 图片圆角 */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* 图片立体阴影 */
-    margin: 30px auto !important;
-    display: block;
-    max-width: 100%;
+.post-content-preview {
+    margin-top: 15px;
+    color: #81766d;
+    font-size: 15px;
+    line-height: 1.95;
+    font-style: normal;
 }
 
-/* 6. 顶部大图 Header 优化 */
-header.intro-header .site-heading, 
-header.intro-header .post-heading {
-    padding: 100px 0;
-    /* 仅在背景图上的文字保留阴影，保证可读性 */
-    text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+.post-preview > .post-meta {
+    margin-top: 22px;
+    color: #9a9088;
+    font-size: 14px;
+    font-style: italic;
 }
 
-/* 7. 导航栏样式微调 */
-.navbar-custom {
-    background: rgba(255,255,255,0.95); /* 半透明白底 */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+.postlist-container hr,
+.post-container > hr {
+    display: none;
 }
-.navbar-custom .navbar-brand, 
-.navbar-custom .nav li a {
-    color: #333 !important; /* 导航文字深色 */
+
+/* 5. 首页右侧栏 */
+.sidebar-container {
+    color: #8f857d;
+}
+
+.sidebar-container h5 {
+    color: #7b7169;
+    font-size: 13px;
     font-weight: 700;
+    letter-spacing: .12em;
 }
 
-/* 8. 侧边栏滚动黏滞 (PC端有效) */
+.sidebar-container h5 a {
+    color: #7b7169;
+}
+
+.sidebar-container .short-about,
+.sidebar-container .tags,
+.sidebar-container section > div[style*="border-radius"] {
+    background: #fffdf8;
+    border: 1px solid #eadfd2;
+    border-radius: 20px !important;
+    box-shadow: 0 14px 36px rgba(80, 58, 42, .06) !important;
+}
+
+.sidebar-container .short-about {
+    padding: 20px;
+}
+
+.sidebar-container .short-about img {
+    width: 100%;
+    max-width: 210px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    box-shadow: none;
+}
+
+.sidebar-container .short-about p {
+    color: #8a8178;
+    line-height: 1.85;
+}
+
+.tags a,
+.sidebar-container .tags a {
+    display: inline-block;
+    border: 1px solid #eadfd2;
+    background: #f8f1e9;
+    color: #8a5d43 !important;
+    border-radius: 999px;
+    padding: 6px 13px;
+    margin: 4px 4px 8px 0;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.tags a:hover,
+.sidebar-container .tags a:hover {
+    background: #9a6b4f;
+    border-color: #9a6b4f;
+    color: #fffaf3 !important;
+}
+
+/* PC 端右栏吸顶 */
 @media (min-width: 992px) {
     .sidebar-container {
-        position: -webkit-sticky;
         position: sticky;
-        top: 85px; 
+        top: 86px;
         z-index: 10;
         height: fit-content;
     }
 }
 
-/* 9. 去除旧样式 */
+/* 6. 正文阅读体验 */
+article .post-container {
+    background: #fffdf8;
+    border: 1px solid #eadfd2;
+    border-radius: 24px;
+    padding: 46px 54px;
+    box-shadow: 0 18px 50px rgba(80, 58, 42, .07);
+}
+
+article .post-container p {
+    color: #3f3832;
+    font-size: 17px;
+    line-height: 2.08;
+}
+
+article .post-container h1,
+article .post-container h2,
+article .post-container h3,
+article .post-container h4 {
+    font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+    font-weight: 500;
+    color: #2f2a26;
+}
+
+article img,
+.post-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 30px auto !important;
+    border-radius: 18px;
+    box-shadow: 0 18px 48px rgba(80, 58, 42, .12);
+}
+
+blockquote {
+    border-left: 4px solid #b7795f;
+    background: #f8f1e9;
+    color: #6f655d;
+    padding: 14px 22px;
+    border-radius: 0 14px 14px 0;
+    font-style: normal;
+}
+
+/* 7. 照片页：全宽，无侧边栏 */
+.photo-intro-header {
+    margin-bottom: 0;
+}
+
+.photo-page-wrapper {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 28px 88px;
+}
+
+.photo-page-intro {
+    max-width: 760px;
+    margin: 0 auto 44px;
+    text-align: center;
+}
+
+.photo-page-kicker {
+    margin: 0 0 12px;
+    color: #b7795f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.photo-page-intro h1 {
+    margin: 0;
+    color: #2f2a26;
+    font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.25;
+    font-weight: 500;
+    letter-spacing: -.04em;
+}
+
+.photo-page-intro p {
+    margin: 18px auto 0;
+    max-width: 640px;
+    color: #7a6f66;
+    font-size: 17px;
+    line-height: 2;
+}
+
+.photo-masonry {
+    column-count: 3;
+    column-gap: 22px;
+}
+
+.photo-card {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 22px;
+    break-inside: avoid;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #fffdf8;
+    box-shadow: 0 16px 42px rgba(80, 58, 42, .12);
+}
+
+.photo-card a {
+    display: block;
+}
+
+.photo-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 !important;
+    border-radius: 22px;
+    box-shadow: none;
+    transition: transform .35s ease, filter .35s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.035);
+    filter: brightness(.96);
+}
+
+/* 8. 通用清理 */
 hr.small {
     display: none;
+}
+
+/* 9. 移动端 */
+@media only screen and (max-width: 991px) {
+    .photo-page-wrapper {
+        max-width: 760px;
+    }
+
+    .photo-masonry {
+        column-count: 2;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    body {
+        background: #fffdf8;
+    }
+
+    header.intro-header .site-heading,
+    header.intro-header .post-heading {
+        padding: 92px 0 62px;
+    }
+
+    .intro-header {
+        margin-bottom: 26px;
+    }
+
+    .post-preview {
+        padding: 26px 24px;
+        border-radius: 22px;
+        box-shadow: none;
+    }
+
+    .post-preview > a > .post-title {
+        font-size: 25px;
+    }
+
+    article .post-container {
+        border: none;
+        box-shadow: none;
+        padding: 14px 4px;
+    }
+
+    article .post-container p {
+        font-size: 16px;
+        line-height: 2;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .photo-page-wrapper {
+        padding: 34px 18px 64px;
+    }
+
+    .photo-page-intro {
+        text-align: left;
+        margin-bottom: 30px;
+    }
+
+    .photo-page-intro h1 {
+        font-size: 32px;
+    }
+
+    .photo-page-intro p {
+        font-size: 16px;
+    }
+
+    .photo-masonry {
+        column-count: 1;
+    }
+
+    .photo-card {
+        border-radius: 18px;
+        margin-bottom: 18px;
+        box-shadow: 0 12px 30px rgba(80, 58, 42, .10);
+    }
+
+    .photo-card img {
+        border-radius: 18px;
+    }
 }
