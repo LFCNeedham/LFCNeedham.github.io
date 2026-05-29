@@ -1,10 +1,10 @@
 # Site settings
 title: Needham Blog
-SEOTitle: Needham's Blog
+SEOTitle: Needham Lee 的个人空间
 header-img: img/home-bg.jpg
 email: lfcneedham@gmail.com
-description: "独善其身"
-keyword: "Needham, 个人博客, 日记, 杂文, 生活记录"
+description: "把一些日子、片刻和心情留在这里"
+keyword: "Needham Lee, Needham Blog, 个人博客, 日记, 散文, 摄影, 照片, 生活记录"
 url: "http://lfcneedham.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/LFCNeedham/LFCNeedham.github.io" # you code repository
