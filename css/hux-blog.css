@@ -1089,3 +1089,344 @@ img::-moz-selection {
 .page-fullscreen footer .copyright a:hover {
   color: #ddd;
 }
+/* ================================
+   Needham Blog Modern UI Override
+   追加到 css/hux-blog.css 最后
+================================ */
+
+/* 全局背景与字体 */
+body {
+  background: #f6f8fb;
+  color: #1f2937;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "PingFang SC",
+    "Microsoft YaHei",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  line-height: 1.8;
+}
+
+/* 全局链接 */
+a {
+  color: #2563eb;
+  transition: all 0.2s ease;
+}
+
+a:hover,
+a:focus {
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+/* 顶部导航现代化 */
+.navbar-custom {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav li a {
+  color: #111827 !important;
+  font-weight: 700;
+}
+
+.navbar-custom .nav li a {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .nav li a:hover {
+  color: #2563eb !important;
+}
+
+/* 首页大图区域弱化旧模板感 */
+.intro-header {
+  position: relative;
+  background-color: #0f172a;
+  margin-bottom: 48px;
+}
+
+.intro-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.88),
+      rgba(30, 64, 175, 0.72),
+      rgba(6, 182, 212, 0.42)
+    );
+  z-index: 1;
+}
+
+.intro-header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.intro-header .site-heading,
+.intro-header .page-heading,
+.intro-header .post-heading {
+  color: #ffffff;
+}
+
+.intro-header .site-heading h1,
+.intro-header .page-heading h1 {
+  font-size: clamp(42px, 7vw, 84px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.intro-header .site-heading .subheading,
+.intro-header .page-heading .subheading {
+  margin-top: 18px;
+  font-size: clamp(16px, 2vw, 22px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* 内容容器 */
+.post-container,
+.sidebar-container {
+  background: transparent;
+}
+
+/* 首页文章列表卡片化 */
+.post-preview {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 18px;
+  padding: 28px 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.post-preview:hover {
+  transform: translateY(-4px);
+  border-color: rgba(37, 99, 235, 0.25);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.1);
+}
+
+.post-preview > a {
+  color: #111827;
+}
+
+.post-preview > a:hover {
+  color: #2563eb;
+}
+
+.post-preview .post-title {
+  font-size: 28px;
+  line-height: 1.35;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  margin-top: 0;
+}
+
+.post-preview .post-subtitle {
+  color: #4b5563;
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 400;
+  margin-top: 12px;
+}
+
+.post-preview .post-meta {
+  color: #6b7280;
+  font-size: 14px;
+  font-style: normal;
+  margin-top: 18px;
+}
+
+.post-preview .post-meta a {
+  color: #2563eb;
+}
+
+/* 去掉旧式分割线的廉价感 */
+.postlist-container hr {
+  display: none;
+}
+
+/* 文章正文现代化 */
+.post-container {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 18px;
+  padding: 36px 42px;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.05);
+}
+
+.post-container p {
+  margin: 22px 0;
+  color: #374151;
+}
+
+.post-container h1,
+.post-container h2,
+.post-container h3,
+.post-container h4 {
+  color: #111827;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+}
+
+.post-container h2 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.post-container blockquote {
+  border-left: 4px solid #2563eb;
+  background: #f8fafc;
+  color: #475569;
+  padding: 14px 20px;
+  border-radius: 0 12px 12px 0;
+  font-style: normal;
+}
+
+/* 代码块 */
+pre {
+  border: 0;
+  border-radius: 14px;
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 18px 20px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+code {
+  border-radius: 6px;
+  background: #eef2ff;
+  color: #1d4ed8;
+  padding: 2px 6px;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+/* 侧边栏卡片化 */
+.sidebar-container {
+  color: #64748b;
+}
+
+.sidebar-container .short-about,
+.sidebar-container .tags,
+.sidebar-container .friends {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.05);
+}
+
+.sidebar-container h5 {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-container a {
+  color: #2563eb !important;
+}
+
+/* 头像现代化 */
+.sidebar-container .short-about img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+}
+
+/* 标签样式 */
+.tags a,
+.sidebar-container .tags a {
+  display: inline-block;
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  color: #2563eb !important;
+  border-radius: 999px;
+  padding: 6px 12px;
+  margin: 4px 4px 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tags a:hover,
+.sidebar-container .tags a:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff !important;
+}
+
+/* 分页按钮 */
+.pager li > a,
+.pager li > span {
+  border-radius: 999px;
+  border: 1px solid #dbeafe;
+  color: #2563eb;
+  background: #ffffff;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.pager li > a:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+/* 移动端优化 */
+@media only screen and (max-width: 767px) {
+  body {
+    background: #ffffff;
+  }
+
+  .intro-header {
+    margin-bottom: 24px;
+  }
+
+  .intro-header .site-heading,
+  .intro-header .page-heading,
+  .intro-header .post-heading {
+    padding: 96px 0 64px;
+  }
+
+  .post-preview {
+    padding: 22px 20px;
+    border-radius: 16px;
+    box-shadow: none;
+  }
+
+  .post-preview .post-title {
+    font-size: 23px;
+  }
+
+  .post-container {
+    border: none;
+    box-shadow: none;
+    padding: 12px 4px;
+  }
+
+  .navbar-custom .navbar-collapse {
+    border-radius: 14px;
+    right: 12px;
+    top: 56px;
+  }
+}
