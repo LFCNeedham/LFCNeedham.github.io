@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: photo-page
 title: PHOTOS
 description: "一些生活里的片刻"
 permalink: /photos/
@@ -22,8 +22,8 @@ header-img: img/home-bg-art.jpg
     {% assign ext = file.extname | downcase %}
     {% if ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.webp' or ext == '.gif' %}
       <figure class="photo-card">
-        <a href="{{ file.path | relative_url }}" target="_blank">
-          <img src="{{ file.path | relative_url }}" alt="Needham photo {{ forloop.index }}">
+        <a href="{{ file.path | relative_url }}" target="_blank" rel="noopener">
+          <img src="{{ file.path | relative_url }}" alt="Needham photo {{ forloop.index }}" loading="lazy">
         </a>
       </figure>
     {% endif %}
