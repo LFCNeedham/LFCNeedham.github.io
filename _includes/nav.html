@@ -9,6 +9,9 @@
         </a>
 
         <div class="nav-actions">
+            <button class="search-toggle" type="button" aria-label="搜索文章" title="搜索文章">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+            </button>
             <button class="theme-toggle" type="button" aria-label="切换深浅色主题" title="切换深浅色主题">
                 <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
                 <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 15.4A8.5 8.5 0 0 1 8.6 3.6 8.5 8.5 0 1 0 20.4 15.4Z"></path></svg>
@@ -27,3 +30,37 @@
         </div>
     </div>
 </nav>
+
+<dialog class="search-dialog" aria-labelledby="search-title">
+    <div class="search-dialog-inner">
+        <div class="search-dialog-heading">
+            <div>
+                <p class="eyebrow"><span></span> Search notes</p>
+                <h2 id="search-title">找一段文字</h2>
+            </div>
+            <button class="search-close" type="button" aria-label="关闭搜索">×</button>
+        </div>
+        <label class="search-field">
+            <span class="sr-only">搜索标题、标签或正文</span>
+            <input type="search" data-search-input placeholder="输入关键词，例如：北京、故乡、工作" autocomplete="off">
+            <kbd>Esc</kbd>
+        </label>
+        <div class="search-results" data-search-results aria-live="polite">
+            <p class="search-hint">从标题、标签和文章内容中搜索。</p>
+        </div>
+    </div>
+</dialog>
+
+<script type="application/json" id="post-search-data">
+[
+{% for post in site.posts %}
+    {
+        "title": {{ post.title | jsonify }},
+        "url": {{ post.url | relative_url | jsonify }},
+        "date": {{ post.date | date: '%Y.%m.%d' | jsonify }},
+        "tags": {{ post.tags | join: ' ' | jsonify }},
+        "text": {{ post.content | strip_html | strip_newlines | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]
+</script>

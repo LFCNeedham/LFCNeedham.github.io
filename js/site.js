@@ -4,6 +4,11 @@
     var root = document.documentElement;
     var body = document.body;
     var themeToggle = document.querySelector('.theme-toggle');
+    var searchToggle = document.querySelector('.search-toggle');
+    var searchDialog = document.querySelector('.search-dialog');
+    var searchInput = document.querySelector('[data-search-input]');
+    var searchResults = document.querySelector('[data-search-results]');
+    var searchData = [];
     var menuToggle = document.querySelector('.menu-toggle');
     var primaryMenu = document.querySelector('.primary-menu');
 
@@ -25,6 +30,50 @@
     }
 
     setTheme(root.dataset.theme || 'light', false);
+
+    var searchDataElement = document.getElementById('post-search-data');
+    if (searchDataElement) {
+        try {
+            searchData = JSON.parse(searchDataElement.textContent);
+        } catch (error) {
+            searchData = [];
+        }
+    }
+
+    function closeSearch() {
+        if (searchDialog && searchDialog.open) searchDialog.close();
+    }
+
+    function renderSearchResults(query) {
+        if (!searchResults) return;
+        var normalized = query.trim().toLowerCase();
+        if (!normalized) {
+            searchResults.innerHTML = '<p class="search-hint">从标题、标签和文章内容中搜索。</p>';
+            return;
+        }
+        var matches = searchData.filter(function (post) {
+            return [post.title, post.tags, post.text].join(' ').toLowerCase().indexOf(normalized) !== -1;
+        }).slice(0, 8);
+        if (!matches.length) {
+            searchResults.innerHTML = '<p class="search-hint">没有找到相关内容，换个词试试。</p>';
+            return;
+        }
+        searchResults.innerHTML = matches.map(function (post) {
+            return '<a class="search-result" href="' + post.url + '"><span><time>' + post.date + '</time><strong>' + post.title + '</strong></span><i aria-hidden="true">↗</i></a>';
+        }).join('');
+    }
+
+    if (searchToggle && searchDialog) {
+        searchToggle.addEventListener('click', function () {
+            searchDialog.showModal();
+            if (searchInput) searchInput.focus();
+        });
+        searchDialog.querySelector('.search-close').addEventListener('click', closeSearch);
+        searchDialog.addEventListener('click', function (event) {
+            if (event.target === searchDialog) closeSearch();
+        });
+        if (searchInput) searchInput.addEventListener('input', function () { renderSearchResults(searchInput.value); });
+    }
 
     if (themeToggle) {
         themeToggle.addEventListener('click', function () {
@@ -61,7 +110,18 @@
 
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') closeMenu();
+        if (event.key === 'Escape') closeSearch();
     });
+
+    var randomPost = document.querySelector('[data-random-post]');
+    if (randomPost && searchData.length) {
+        randomPost.addEventListener('click', function () {
+            var current = window.location.pathname;
+            var choices = searchData.filter(function (post) { return post.url !== current; });
+            var target = choices[Math.floor(Math.random() * choices.length)] || searchData[0];
+            window.location.href = target.url;
+        });
+    }
 
     var progressBar = document.querySelector('.reading-progress span');
     var article = document.querySelector('[data-article]');

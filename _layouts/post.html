@@ -49,8 +49,11 @@ layout: default
                 </a>
                 {% endif %}
             </nav>
+            <div class="post-utility">
+                <button class="text-link random-post" type="button" data-random-post>随便走走 <span aria-hidden="true">↗</span></button>
+            </div>
 
-            {% if site.gitalk.enable %}
+            {% if site.gitalk.enable and site.gitalk.clientSecret %}
             <section class="comments-card" aria-labelledby="comments-title">
                 <div class="comments-heading">
                     <p class="eyebrow"><span></span> Conversation</p>
